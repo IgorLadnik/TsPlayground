@@ -6,6 +6,16 @@ class Field {
     }
 }
 
+class MyClass {
+    constructor(private a: number) { }
+
+    getA = (): number =>
+        this.a;
+}
+
+function func (): number { return this.a; }
+
+
 (async function main() {
     const obj: any = { a: 1, b: 2, c: 11 };
 
@@ -36,4 +46,10 @@ class Field {
     }, new Field('20', 'val20'));
 
     console.log(JSON.stringify(newSchema));
+
+    //-----------------------------------------------------------------------
+    const my = new MyClass(5);
+    const a = func.bind(my)();
+
+    console.log(a);
 })();
