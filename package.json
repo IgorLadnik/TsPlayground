@@ -1,0 +1,26 @@
+{
+  "name": "TsPlayground",
+  "version": "1.0.0",
+  "description": "Learning TS/JS",
+  "main": "src/app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "1.18.10",
+    "ts-node": "8.0.2",
+    "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "msnodesqlv8": "^1.1.1",
+    "ncp": "2.0.0",
+    "typescript-simple": "^8.0.6"
+  }
+}
