@@ -13,10 +13,18 @@ class MyClass {
         this.a;
 }
 
-function func (): number { return this.a; }
+//function func (): number { return this.a; }
+
+
+//---------------------------------
+const fn = (a1: number) => (b: number) => a1 + b;
+
+//---------------------------------
 
 
 (async function main() {
+    const resab = fn(5)(4);
+
     const obj: any = { a: 1, b: 2, c: 11 };
 
     //-----------------------------------------------------------------------
@@ -48,8 +56,8 @@ function func (): number { return this.a; }
     console.log(JSON.stringify(newSchema));
 
     //-----------------------------------------------------------------------
-    const my = new MyClass(5);
-    const a = func.bind(my)();
+    // const my = new MyClass(5);
+    // const a = func.bind(my)();
 
-    console.log(a);
+    // console.log(a);
 })();
