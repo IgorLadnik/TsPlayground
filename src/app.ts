@@ -17,7 +17,7 @@ class MyClass {
 function func (): number { return this.a; }
 
 
-//------------------------------------------------
+//- 1 --------------------------------------------
 const fn = (a1: number) => (b: number) => a1 + b;
 
 //------------------------------------------------
@@ -32,11 +32,66 @@ class Ga {
     }
 }
 
+//- 2 ------------------------------------------------------
+const afn1 = async (n: number) => console.log(`  afn1: ${n}`);
+const afn2 = (n: number) => new Promise<void>(resolve => setImmediate(() => {
+    resolve();
+    console.log(`  afn2: ${n}`)
+}));
+
+// - decorator -------------------------------------------
+function log(logMessage: string) {
+    // return decorator function
+    return function (target: any, property: any, descriptor: any) {
+        // save original value, which is method (function)
+        let originalMethod = descriptor.value;
+        // replace method implementation
+        descriptor.value = function(...args: Array<any>) {
+            console.log('[LOG]', logMessage);
+            // here, call original method
+            // `this` points to the instance
+            return originalMethod.call(this, ...args);
+        };
+        return descriptor;
+    }
+}
+
+class SomeClass {
+    @log('the log message')
+    method(s: string) {
+        console.log(s);
+    }
+}
 
 //------------------------------------------------
 (async function main() {
+    // - decorator -------------------------------------------
+    const sc = new SomeClass();
+    sc.method('a string');
+
+    // - descriptor -------------------------------------------
+    let myObj = {
+        myPropOne: 1,
+        myPropTwo: 2
+    };
+
+    let descriptor = Object.getOwnPropertyDescriptor(myObj,'myPropOne');
+    console.log(descriptor);
+
+    //- 2 ------------------------------------------------------
+    const promises = new Array<Promise<void>>();
+    for (let i = 0;  i < 3; i++) {
+        promises.push(afn2(i));
+        console.log(`loop: ${i}`);
+    }
+
+    await Promise.all(promises);
+    console.log('all');
+
+    //- 1 --------------------------------------------
     const resab = fn(5)(4);
 
+    //-------------------------------------------------
     const obj: any = { a: 1, b: 2, c: 11 };
 
     let sum = 0;
@@ -79,6 +134,5 @@ class Ga {
      const ga = new Ga();
      setImmediate(() => {
          ga.method1();
-
      });
 })();
