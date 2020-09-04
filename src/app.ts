@@ -1,3 +1,16 @@
+// function afn(n: number) {
+//     return new Promise<number>(resolve => {
+//         const ret = n * 10;
+//         console.log(`  afn21: ${ret}`)
+//         resolve();
+//         return ret;
+//     });
+// }
+//
+// afn(5).then(
+//     res => console.log(res));
+
+//-------------------------------------------
 class Field {
     children: Array<Field>;
 
@@ -65,6 +78,9 @@ class SomeClass {
 
 //------------------------------------------------
 (async function main() {
+    // -------------------------------------------------------
+    const res = await doAsync(2, 3);
+
     // - decorator -------------------------------------------
     const sc = new SomeClass();
     sc.method('a string');
